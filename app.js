@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const data = require("./data/cohorts");
+
 const app = express();
 app.use(cors());
 
@@ -14,20 +15,20 @@ function findById(data, id){
 }
 
 app.get("/", function (request, response) {
-    response.json(data);
+    response.json({data});
 });
+
 app.get("/:id", function (request, response) {
-  var record = findById(data, request.params.id);
-  console.log(record);
-  if (!record) { console.log('no record');
-    response.status(404).json({
-      error: {
-        message: 'no record found!'
-      }
-    });
-  } else {
-  response.json(record);
-  }
+    var record = findById(data, request.params.id);
+    if (!record) {
+        response.status(404).json({
+            error: {
+                message: 'no record found!'
+            }
+        });
+    } else {
+        response.json({data: record});
+    }
 });
 
 app.listen(process.env.PORT||3000);
