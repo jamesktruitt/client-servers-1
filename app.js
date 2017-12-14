@@ -10,7 +10,7 @@ function findById(data, id) {
     if (data[i].id == id) {
       return data[i];
     }
-  }
+  };
   return null;
 }
 
